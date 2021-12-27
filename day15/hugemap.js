@@ -18,10 +18,21 @@ async function processLineByLine() {
 		input.push(line.split("").map(e => parseInt(e, 10)));
 	}
 
-	const v = new Array(input.length);
-	for (let i = 0; i < v.length; i++) {
-		v[i] = new Array(input[i].length).fill(Number.MAX_SAFE_INTEGER);
+	function risk(x, y) {
+		const tx = Math.floor(x / input.length);
+		const ix = x % input.length;
+
+		const ty = Math.floor(y / input[ix].length);
+		const iy = y % input[ix].length;
+
+		return (input[ix][iy] + tx + ty - 1) % 9 + 1;
 	}
+
+	const v = new Array(input.length * 5);
+	for (let i = 0; i < v.length; i++) {
+		v[i] = new Array(input[i % input.length].length * 5).fill(Number.MAX_SAFE_INTEGER);
+	}
+
 
 	const queue = new MinPriorityQueue({
 		priority: (elem) => elem.v
@@ -45,7 +56,7 @@ async function processLineByLine() {
 		const elem = queue.dequeue();
 		const c = elem.element.c;
 
-		if (c[0] === (input.length - 1) && c[1] === (input[c[0]].length - 1)) {
+		if (c[0] === (input.length * 5 - 1) && c[1] === (input[c[0] % input.length].length * 5 - 1)) {
 			console.log(elem.priority);
 			break;
 		}
@@ -53,8 +64,8 @@ async function processLineByLine() {
 		directions.forEach(d => {
 			const dx = c[0] + d[0];
 			const dy = c[1] + d[1];
-			if (dx >= 0 && dx < input.length && dy >=0 && dy < input[dx].length) {
-				const value = v[c[0]][c[1]] + input[dx][dy];
+			if (dx >= 0 && dx < input.length * 5 && dy >=0 && dy < input[dx % input.length].length * 5) {
+				const value = v[c[0]][c[1]] + risk(dx, dy);
 				if (value < v[dx][dy]) {
 					v[dx][dy] = value;
 					queue.enqueue({
