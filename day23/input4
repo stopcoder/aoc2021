@@ -1,0 +1,38 @@
+#############
+#...........#
+###C#B#A#D###
+  #B#C#D#A#
+  #########
+
+
+#############
+#...........#
+###C#B#A#D###
+#012345678910
+
+
+
+
+hallway
+0,1,3,5,7,9,10
+
+
+house
+2,4,6,8
+
+pos
+0,1,(2,3)
+
+
+
+
+house -> hallway
+* pos === 0 or pos(0) is free
+* house -> hallway no obstacle
+
+hallway -> house
+* house is free (either pos(0) and pos(1) are free or pos(1) is correctly occupied and pos(0) is free)
+* hallway -> house is free in hallway
+
+
+

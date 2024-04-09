@@ -1,0 +1,14 @@
+{
+  "name": "day23",
+  "version": "1.0.0",
+  "description": "",
+  "main": "calc.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "object-hash": "^2.2.0"
+  }
+}
